@@ -84,7 +84,8 @@ lazy val commonSettings = clearSourceAndResourceDirectories ++ Seq[Setting[_]](
   // on Scala classes
   compileOrder := CompileOrder.JavaThenScala,
   javacOptions in Compile ++= Seq("-g", "-source", "1.5", "-target", "1.6"),
-  // we don't want any unmanaged jars; as a reminder: unmanaged jar is a jar stored
+  scalacOptions in Compile +=  "-Xplugin:<path-to-sxr>/sxr-0.3.0.jar",
+    // we don't want any unmanaged jars; as a reminder: unmanaged jar is a jar stored
   // directly on the file system and it's not resolved through Ivy
   // Ant's build stored unmanaged jars in `lib/` directory
   unmanagedJars in Compile := Seq.empty,
@@ -171,6 +172,7 @@ lazy val compiler = configureAsSubproject(project)
   .settings(
     name := "scala-compiler",
     libraryDependencies ++= Seq(antDep, asmDep),
+    scalacOptions += "-Xplugin:<path-to-sxr>/sxr-0.3.0.jar",
     // this a way to make sure that classes from interactive and scaladoc projects
     // end up in compiler jar (that's what Ant build does)
     // we need to use LocalProject references (with strings) to deal with mutual recursion
