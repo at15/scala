@@ -84,7 +84,7 @@ lazy val commonSettings = clearSourceAndResourceDirectories ++ Seq[Setting[_]](
   // on Scala classes
   compileOrder := CompileOrder.JavaThenScala,
   javacOptions in Compile ++= Seq("-g", "-source", "1.5", "-target", "1.6"),
-  scalacOptions in Compile +=  "-Xplugin:<path-to-sxr>/sxr-0.3.0.jar",
+  scalacOptions in Compile +=  "-Ywarn-dead-code",
     // we don't want any unmanaged jars; as a reminder: unmanaged jar is a jar stored
   // directly on the file system and it's not resolved through Ivy
   // Ant's build stored unmanaged jars in `lib/` directory
