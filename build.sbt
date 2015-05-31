@@ -84,7 +84,7 @@ lazy val commonSettings = clearSourceAndResourceDirectories ++ Seq[Setting[_]](
   // on Scala classes
   compileOrder := CompileOrder.JavaThenScala,
   javacOptions in Compile ++= Seq("-g", "-source", "1.5", "-target", "1.6"),
-  scalacOptions in Compile +=  "-Ywarn-dead-code",
+  scalacOptions in Compile ++= Seq[String]("-Ywarn-dead-code", "-Ywarn-unused", "-Ywarn-value-discard", "-Xplugin:lib/scala-linter_2.11-0.0.1.jar"),
     // we don't want any unmanaged jars; as a reminder: unmanaged jar is a jar stored
   // directly on the file system and it's not resolved through Ivy
   // Ant's build stored unmanaged jars in `lib/` directory
@@ -117,7 +117,7 @@ val disableDocsAndPublishingTasks = Seq[Setting[_]](
   packageBin in Compile := file("!!! NO PACKAGING !!!")
 )
 
-lazy val setJarLocation: Setting[_] = 
+lazy val setJarLocation: Setting[_] =
   artifactPath in packageBin in Compile := {
     // two lines below are copied over from sbt's sources:
     // https://github.com/sbt/sbt/blob/0.13/main/src/main/scala/sbt/Defaults.scala#L628
