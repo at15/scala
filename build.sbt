@@ -84,7 +84,7 @@ lazy val commonSettings = clearSourceAndResourceDirectories ++ Seq[Setting[_]](
   // on Scala classes
   compileOrder := CompileOrder.JavaThenScala,
   javacOptions in Compile ++= Seq("-g", "-source", "1.5", "-target", "1.6"),
-  scalacOptions in Compile ++= Seq[String]("-Ywarn-dead-code", "-Ywarn-unused", "-Ywarn-value-discard", "-Xplugin:lib/scala-linter_2.11-0.0.1.jar"),
+  scalacOptions in Compile ++= Seq[String]("-Xplugin:lib/scala-linter_2.11-0.0.1.jar","-P:DeadCodeDetect:enable:unused_param_check"),
     // we don't want any unmanaged jars; as a reminder: unmanaged jar is a jar stored
   // directly on the file system and it's not resolved through Ivy
   // Ant's build stored unmanaged jars in `lib/` directory
